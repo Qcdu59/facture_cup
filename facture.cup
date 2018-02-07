@@ -1,0 +1,17 @@
+import java_cup.runtime.*;
+
+action code {: int nb_elem = 0;:}
+
+terminal PT, NO, NUM, VIRG, LIB, FACT, TOT;
+non terminal facture, felem, elem, total;
+start with facture;
+
+facture ::= {:System.out.print("FACTURE ");:} FACT NO:n {:System.out.println((String)n);:} felem;
+felem ::= LIB:l {:System.out.print((String)l+" ");nb_elem++;:} 
+	NUM:n {:System.out.print(((Integer)n).intValue()+" ");:}
+	NUM:n1 {:System.out.println(((Integer)n1).intValue()+",");:} VIRG elem;
+elem ::= LIB:l {:System.out.print((String)l+" ");nb_elem++;:} 
+	NUM:n {:System.out.print(((Integer)n).intValue()+" ");:}
+	NUM:n1 {:System.out.println(((Integer)n1).intValue()+",");:} VIRG elem;
+elem ::= total;
+total ::= {:System.out.print(nb_elem+" TOTAL ");:} TOT NUM:n {:System.out.println(((Integer)n).intValue());:} PT;
